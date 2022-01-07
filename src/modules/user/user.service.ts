@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { InvalidPasswordEmailException } from '../../exceptions';
 import { UserAlreadyExistsException } from '../../exceptions';
-import { ITokenResponse } from '../../interfaces/api.interface';
+import { ITokenResponse } from '../../interfaces';
 import { User } from '../../models/user.entity';
 import { encryptData, generateToken, verifyData } from '../../utils';
 import { SignUpDto, SingInDto } from './user.dto';

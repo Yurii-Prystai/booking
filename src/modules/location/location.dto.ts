@@ -1,6 +1,12 @@
-import { IsDateString, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
-import { ENTITY_TYPES, ORDER_DIRECTION } from '../../enums/location.enum';
+import { ENTITY_TYPES, ORDER_DIRECTION } from '../../enums';
 
 export class GetLocationQueryDto {
   @IsOptional()

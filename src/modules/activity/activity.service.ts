@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, getConnection, Repository } from 'typeorm';
 import { Activity, Booking } from '../../models';
-import { ENTITY_TYPES } from '../../enums/location.enum';
+import { ENTITY_TYPES } from '../../enums';
 
 @Injectable()
 export class ActivityService {
@@ -15,19 +15,19 @@ export class ActivityService {
     locationId: number,
     activityTypeId: number,
     entityManager: EntityManager,
-  ): Promise<{ id: number, price: number}> {
+  ): Promise<{ id: number; price: number }> {
     return entityManager
       .createQueryBuilder(Activity, 'ac')
       .innerJoin('activity_type', 'at', 'at.id=ac.type_id')
-      .where(
-        `ac.location_id = :locationId AND ac.type_id = :activityTypeId`,
-        { locationId, activityTypeId },
-      )
+      .where(`ac.location_id = :locationId AND ac.type_id = :activityTypeId`, {
+        locationId,
+        activityTypeId,
+      })
       .select('ac.id', 'id')
       .addSelect('at.price', 'price')
       .getRawOne();
   }
-    
+
   public async bookActivityByLocationId(
     userId: number,
     locationId: number,
@@ -35,8 +35,8 @@ export class ActivityService {
     startDate: Date | string,
     endDate: Date | string,
   ) {
-    return getConnection().transaction(async transactionalEntityManager => {
-      const activity =  await this.getActivityByType(
+    return getConnection().transaction(async (transactionalEntityManager) => {
+      const activity = await this.getActivityByType(
         locationId,
         activityTypeId,
         transactionalEntityManager,

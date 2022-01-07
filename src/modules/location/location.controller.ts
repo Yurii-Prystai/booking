@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { LocationService } from './location.service';
-import { AuthGuard } from '../../guards/auth.guard';
+import { AuthGuard } from '../../guards';
 import {
   BookRoomByLocationParamsDto,
   BookingDatesDto,
@@ -19,7 +19,7 @@ import {
 import {
   IGetLocationResponse,
   IGetTopLocationResponse,
-} from '../../interfaces/api.interface';
+} from '../../interfaces';
 import { UserData } from '../../decorators';
 import { IUserData } from '../../interfaces';
 
@@ -68,7 +68,11 @@ export class LocationController {
     @Body() body: BookEntityDto,
     @UserData() userData: IUserData,
   ) {
-    const result = await this.locationService.bookRoomForLocation(params, body, userData);
+    const result = await this.locationService.bookRoomForLocation(
+      params,
+      body,
+      userData,
+    );
 
     return result;
   }

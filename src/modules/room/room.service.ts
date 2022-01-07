@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, getConnection, Repository } from 'typeorm';
-import { ENTITY_TYPES } from '../../enums/location.enum';
+import { ENTITY_TYPES } from '../../enums';
 import { RoomAlreadyBookedException } from '../../exceptions';
 import { Booking, Room } from '../../models';
 
@@ -18,7 +18,7 @@ export class RoomService {
     startDate: Date | string,
     endDate: Date | string,
     entityManager: EntityManager,
-  ): Promise<{ id: number, price: number}> {
+  ): Promise<{ id: number; price: number }> {
     const availableRoom = await entityManager
       .createQueryBuilder(Room, 'rm')
       .innerJoin('room_type', 'rt', 'rt.id=rm.type_id')
@@ -37,7 +37,7 @@ export class RoomService {
       .select('rm.id', 'id')
       .addSelect('rt.price', 'price')
       .getRawOne();
-    
+
     if (!availableRoom) {
       throw new RoomAlreadyBookedException();
     }
@@ -52,8 +52,8 @@ export class RoomService {
     startDate: Date | string,
     endDate: Date | string,
   ) {
-    return getConnection().transaction(async transactionalEntityManager => {
-      const availableRoom =  await this.getAvailableRoom(
+    return getConnection().transaction(async (transactionalEntityManager) => {
+      const availableRoom = await this.getAvailableRoom(
         locationId,
         roomTypeId,
         startDate,

@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ITokenResponse } from '../../interfaces/api.interface';
+import { ITokenResponse } from '../../interfaces';
 import { SignUpDto, SingInDto } from './user.dto';
 import { UserService } from './user.service';
 

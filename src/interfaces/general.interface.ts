@@ -1,3 +1,3 @@
 export interface IUserData {
-    userId: number;
+  userId: number;
 }

@@ -5,17 +5,17 @@ import { Booking, Location, Room } from '../../models';
 import {
   IGetLocationResponse,
   IGetTopLocationResponse,
-} from '../../interfaces/api.interface';
+  IUserData,
+} from '../../interfaces';
 import {
   BookEntityDto,
   BookingDatesDto,
   BookRoomByLocationParamsDto,
   GetLocationQueryDto,
 } from './location.dto';
-import { ENTITY_TYPES, ORDER_DIRECTION } from '../../enums/location.enum';
+import { ENTITY_TYPES, ORDER_DIRECTION } from '../../enums';
 import { RoomService } from '../room/room.service';
 import { ActivityService } from '../activity/activity.service';
-import { IUserData } from '../../interfaces';
 
 @Injectable()
 export class LocationService {
@@ -98,7 +98,7 @@ export class LocationService {
         endDate,
       );
     }
-    
+
     return this.activityService.bookActivityByLocationId(
       userId,
       locationId,
